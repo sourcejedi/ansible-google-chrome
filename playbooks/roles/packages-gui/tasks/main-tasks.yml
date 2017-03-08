@@ -1,8 +1,0 @@
-- name: Install packages for GUI users
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - thunderbird
-    - firefox
-

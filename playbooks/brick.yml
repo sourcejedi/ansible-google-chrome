@@ -1,8 +1,0 @@
-- hosts: brick
-  roles:
-    - repos-debian-jessie
-    - repos-debian-jessie-backports
-    - etckeeper
-
-    - openssh-server
-    - sshkey-alan-sysop
