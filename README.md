@@ -4,12 +4,12 @@ Install the Google Chrome web browser.
 
 ## Status
 
-This role works fine on my systems (Fedora 25, Debian jessie).  However it will break at some point; see below.
+This role works fine on my systems (Fedora 25, Debian jessie).  However it will break at some point.  See below.
 
 
-## Signing keys
+## Package signing keys
 
-This role verifies the known fingerprints of Google code signing keys, inspired by Dockerfile best practices.  If you like to cross-check the current fingerprints, simply visit the [Google Linux Software Repositories](https://www.google.com/linuxrepositories/) page.
+This role verifies the known fingerprints of Google package signing keys, inspired by Dockerfile best practices.  If you like to cross-check the current fingerprints, simply visit the [Google Linux Software Repositories](https://www.google.com/linuxrepositories/) page.
 
 Installing Chrome provides a cron job, which we rely on to install any new keys.
 
