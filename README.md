@@ -2,12 +2,25 @@
 
 Install the Google Chrome web browser.
 
+
 ## Status
 
-This role works fine on my systems (Fedora 25, Debian jessie).  However it will break at some point.  See below.
+This role works fine on my systems (Fedora 25, Debian jessie).  It will break at some point, see Package Signing Keys below.
 
 
-## Package signing keys
+## Requirements
+
+Operating system based on "Debian" (`apt` package manager), or "RedHat" (`dnf` or possibly `yum`).
+
+
+## Role Variables
+
+To download updates from a shared cache, you can use the variable `google_chrome__yum_proxy`.  This variable applies to systems using the yum or dnf package managers.  It sets `proxy` in `local-google-chome.repo`, as needed for PackageKit (e.g. GNOME Software).  We consider `proxy` in dnf.conf to be obsolete, because it is deliberately ignored by PackageKit.
+
+There is no variable for systems using apt.  You can instead set `Acquire::http::Proxy` in apt.conf.  The setting will be respected both by apt and PackgeKit.
+
+
+## Package Signing Keys
 
 This role verifies the known fingerprints of Google package signing keys, inspired by Dockerfile best practices.  If you like to cross-check the current fingerprints, simply visit the [Google Linux Software Repositories](https://www.google.com/linuxrepositories/) page.
 
@@ -24,13 +37,6 @@ sub  4096R/640DB551 2016-04-12 [expires: 2019-04-12]
 ```
 
 Possible improvement: provide an option which refetches `linux_signing_keys.pub`, for use by developers.  This option will fail *during* a key transition, instead of *after*.  (`get_url force=yes` - it's a small file - so I can pick up the transition the next time I run the role.  The option should work in --check mode, if at all possible).
-
-
-## Role Variables
-
-To download updates from a shared cache, you can use the variable `google_chrome__yum_proxy`.  This variable applies to systems using the yum or dnf package managers.  It sets `proxy` in `local-google-chome.repo`, as needed for PackageKit (e.g. GNOME Software).  We consider `proxy` in dnf.conf to be obsolete, because it is deliberately ignored by PackageKit.
-
-There is no variable for systems using apt.  You can instead set `Acquire::http::Proxy` in apt.conf.  The setting will be respected both by apt and PackgeKit.
 
 
 ## License
