@@ -41,9 +41,9 @@ Possible improvement: provide an option which refetches `linux_signing_keys.pub`
 
 ## License
 
-This role is licensed GPLv3, please open an issue if this creates any problem.
+The role itself is licensed GPLv3, please open an issue if this creates any problem.
 
-Terms of Service apply:
+Terms of Service apply for Google Chrome:
 
 * [https://www.google.com/chrome/](Google Chrome site).  You can view terms of service and download Chrome manually.
 * [https://www.google.com/intl/en/chrome/browser/privacy/eula_text.html](Google Chrome Terms of Service), "Printer-friendly version".
