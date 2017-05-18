@@ -24,6 +24,7 @@
   with_items:
     - keyfile_to_fingerprints.sh
 
+# Also required by `apt-key add`.
 - name: Install GPG for checking key fingerprints
   package: name=gnupg state=present
 
