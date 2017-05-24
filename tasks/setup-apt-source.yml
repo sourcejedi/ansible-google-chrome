@@ -7,6 +7,7 @@
     # "Including this allows check mode to correctly report the changed state"
     - 4CCA1EAF950CEE4AB83976DCA040830F7FAC5991
     - EB4C1BFD4F042F6DDDCCEC917721F63BD38B4796
+  register: keys
 
 # Use the standard google-chrome.list.  It points to a fixed url (CDN).
 # If a local cache is desired, a proxy can be set in apt.conf.
@@ -15,4 +16,12 @@
   copy:
     src: google-chrome.list
     dest: /etc/apt/sources.list.d/
+  register: source
 
+# This test is slow, only bother when changed.
+# (In which case, the next use of apt-get would probably have had to do this anyway).
+- name: Test "apt-get update"
+  when: source.changed
+  command: apt-get update
+  args:
+    warn: no  # don't use apt module, it has to update cache in check mode
