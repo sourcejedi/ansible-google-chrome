@@ -36,7 +36,7 @@
   args:
     chdir: /ansible-managed/google-chrome/
   changed_when: False
-  always_run: True
+  check_mode: False
 
 - name: Supported OS - must use apt or dnf (or possibly yum)
   assert:

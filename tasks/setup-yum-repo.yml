@@ -1,7 +1,7 @@
 - name: RedHat - You need to delete any previous google-chrome.repo
   command: test ! -e /etc/yum.repos.d/google-chrome.repo
   changed_when: False
-  always_run: True
+  check_mode: False
 
 - name: RedHat - Disable creation of google-chrome.repo when package is installed
   #
