@@ -28,7 +28,7 @@
 
 # Also required by `apt-key add`.
 - name: Install GPG for checking key fingerprints
-  package: name=gnupg state=present
+  package: name=gnupg2 state=present
 
 # This role adds keys with specific fingerprints.
 # We will not get key updates over HTTPS, like google-chrome.repo does.

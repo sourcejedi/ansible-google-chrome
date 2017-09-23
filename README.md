@@ -5,12 +5,14 @@ Install the Google Chrome web browser.
 
 ## Status
 
-This role works fine on my systems (Fedora 25, Debian jessie).  It will break at some point, see Package Signing Keys below.
+This role works fine on my systems (Fedora 25 or 26, Debian 8 or 9).  It will break at some point, see Package Signing Keys below.
 
 
 ## Requirements
 
 Operating system based on "Debian" (`apt` package manager), or "RedHat" (`dnf` or possibly `yum`).
+
+Currently this role assumes the `gnupg` package can be installed to provide the `gpg` command.  It's OK if this is still the traditional gpg v1, like in Fedora.  It would only break if they removed that package and expected us to install `gnupg2`.
 
 
 ## Role Variables
