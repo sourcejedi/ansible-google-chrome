@@ -6,8 +6,9 @@ set -e
 # except it doesn't work (see answer in link)
 
 gpg_show_fingerprints() {
-	gpg --with-fingerprint --import-options import-show --dry-run --import < "$1" >/dev/null 2>&1
-	if [ "$?" == 2 ]; then
+	RC=0
+	gpg --with-fingerprint --import-options import-show --dry-run --import < "$1" >/dev/null 2>&1 || RC=$?
+	if [ $RC == 2 ]; then
 		# Usage error.  Try the old way.
 		gpg --with-fingerprint "$1"
 	else
