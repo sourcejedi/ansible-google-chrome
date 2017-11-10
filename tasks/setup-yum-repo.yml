@@ -1,4 +1,4 @@
-- name: RedHat - You need to delete any previous google-chrome.repo
+- name: RedHat - This role requires you uninstall any existing google-chrome.repo
   command: test ! -e /etc/yum.repos.d/google-chrome.repo
   changed_when: False
   check_mode: False
