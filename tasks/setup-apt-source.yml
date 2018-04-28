@@ -27,3 +27,12 @@
   failed_when: update.rc != 0 or update.stderr != ""
   args:
     warn: no  # Can't use apt module.  It doesn't detect unreachable repos.
+
+# Consistency check for existing installs.  Have Google done something
+# "unexpected" that has left a stale, presumably insecure package?
+- name: Debian - Test package is available in repo
+  command: apt-get --print-uris download google-chrome-stable
+  args:
+    warn: no  # can't use ansible apt module, it does not implement this
+  check_mode: no
+  changed_when: False

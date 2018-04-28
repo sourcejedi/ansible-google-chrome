@@ -1,6 +1,11 @@
 # By automating installs with an ansible role,
 # you don't see the normal click-through from the website.
-- name: GOOGLE CHROME AND THIRD PARTY TERMS OF SERVICE APPLY
+#
+# AFAICT Fedora are currently providing an install method which bypasses this,
+# so there's probably no big legal problem for this role in making it easier
+# to ignore, anyway.
+#
+- name: LEGAL NOTICE - Google Chrome and third party Terms of Service apply
   debug:
     msg: https://www.google.com/chrome/ or read
          https://www.google.com/intl/en/chrome/browser/privacy/eula_text.html

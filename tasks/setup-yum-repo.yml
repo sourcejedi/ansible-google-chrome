@@ -35,3 +35,14 @@
   failed_when: dnf_check_update.rc not in [0, 100]
   args:
     warn: no  # can't use ansible dnf module, it does not implement this
+
+# Consistency check for existing installs.  Have Google done something
+# "unexpected" that has left a stale, presumably insecure package?
+- name: RedHat - Test package is available in repo
+  command: dnf \
+           --disablerepo="*" --enablerepo=local-google-chrome
+           list --available google-chrome-stable
+  args:
+    warn: no  # can't use ansible dnf module, it does not implement this
+  check_mode: no
+  changed_when: False
