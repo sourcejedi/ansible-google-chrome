@@ -27,22 +27,22 @@
 # (In which case, the next use of dnf would probably have had to do this anyway).
 - name: RedHat - Test "dnf check-update"
   when: repo.changed
-  command: dnf \
+  command: yum \
            --disablerepo="*" --enablerepo=local-google-chrome
            check-update
   register: dnf_check_update
   # exit status is 0 on success, 100 if updates available (otherwise 100)
   failed_when: dnf_check_update.rc not in [0, 100]
   args:
-    warn: no  # can't use ansible dnf module, it does not implement this
+    warn: no  # can't use ansible yum module, it does not implement this
 
 # Consistency check for existing installs.  Have Google done something
 # "unexpected" that has left a stale, presumably insecure package?
 - name: RedHat - Test package is available in repo
-  command: dnf \
+  command: yum \
            --disablerepo="*" --enablerepo=local-google-chrome
-           list --available google-chrome-stable
+           list available google-chrome-stable
   args:
-    warn: no  # can't use ansible dnf module, it does not implement this
+    warn: no  # can't use ansible yum module, it does not implement this
   check_mode: no
   changed_when: False
