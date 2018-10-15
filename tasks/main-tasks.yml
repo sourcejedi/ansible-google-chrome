@@ -1,45 +1,50 @@
 # By automating installs with an ansible role,
 # you don't see the normal click-through from the website.
 #
-# AFAICT Fedora are currently providing an install method which bypasses this,
-# so there's probably no big legal problem for this role in making it easier
-# to ignore, anyway.
-#
+# Fedora are currently providing a similar install method,
+# so I don't expect to get any calls from Google lawyers :).
+
 - name: LEGAL NOTICE - Google Chrome and third party Terms of Service apply
   debug:
     msg: https://www.google.com/chrome/ or read
          https://www.google.com/intl/en/chrome/browser/privacy/eula_text.html
   delegate_to: localhost
-  run_once: True
+  run_once: yes
 
-- name: Copy Google signing keys for Linux packages
-  #
-  # See https://www.google.com/linuxrepositories/
+# Signing key taken from https://www.google.com/linuxrepositories/
+
+- name: Copy Google signing keys
   copy:
-    src: "{{ item }}"
+    src: '{{ item }}'
     dest: /ansible-managed/google-chrome/
   with_items:
     - linux_signing_key.pub
     - key_fingerprints.txt
 
 - name: Copy script for checking key fingerprints
-  # Ansible copy module does not preserve executable bit, unlike `cp`.
   copy:
-    src: "{{ item }}"
+    src: '{{ item }}'
     dest: /ansible-managed/google-chrome/
+
+    # Ansible copy module does not preserve executable bit, unlike `cp`.
     mode: a+x
   with_items:
     - keyfile_to_fingerprints.sh
 
-# Also required by `apt-key add`.
+# The script requires GPG.  GPG is also needed for `apt-key add`.
+
 - name: Install GPG for checking key fingerprints
-  package: name=gnupg2 state=present
+  package:
+    name: gnupg2
+    state: present
 
 # This role adds keys with specific fingerprints.
-# We will not get key updates over HTTPS, like google-chrome.repo does.
+# We do not accept key updates over HTTPS, unlike google-chrome.repo.
+
 - name: Our key file matches our list of fingerprints
-  shell: ./keyfile_to_fingerprints.sh linux_signing_key.pub |
-         diff -u key_fingerprints.txt /dev/stdin
+  shell: |
+    ./keyfile_to_fingerprints.sh linux_signing_key.pub |
+    diff -u key_fingerprints.txt /dev/stdin
   args:
     chdir: /ansible-managed/google-chrome/
   changed_when: False
@@ -48,8 +53,9 @@
 - name: Supported OS - must use apt or dnf (or possibly yum)
   assert:
     that: ansible_pkg_mgr in ['apt', 'dnf', 'yum']
-    msg: This role only supports OS'es based directly on "Debian" or "RedHat".
-         See also `ansible -m setup ... | grep ansible_os_family`.
+    msg: >
+      This role only supports an OS based on "Debian" or "RedHat".
+      See also "ansible -m setup ... | grep ansible_os_family".
 
 - include: setup-apt-source.yml
   when: ansible_pkg_mgr == 'apt'

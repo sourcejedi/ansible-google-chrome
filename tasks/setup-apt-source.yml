@@ -4,14 +4,14 @@
     id: "{{ item }}"
     keyring: /etc/apt/trusted.gpg.d/google.gpg
   with_items: 
-    # "Including this allows check mode to correctly report the changed state"
+    # "Including [ids] allows check mode to correctly report the changed state"
     - 4CCA1EAF950CEE4AB83976DCA040830F7FAC5991
     - EB4C1BFD4F042F6DDDCCEC917721F63BD38B4796
   register: keys
 
 # Use the standard google-chrome.list.  It points to a fixed url (CDN).
 # If a local cache is desired, a proxy can be set in apt.conf.
-#
+
 - name: Debian - Add Google Chrome package source
   copy:
     src: google-chrome.list
@@ -20,6 +20,7 @@
 
 # This test is slow, only bother when changed.
 # (In which case, the next use of apt would have had to do it anyway).
+
 - name: Debian - Test "apt-get update"
   command: apt-get update
   when: source.changed
@@ -30,6 +31,7 @@
 
 # Consistency check for existing installs.  Have Google done something
 # "unexpected" that has left a stale, presumably insecure package?
+
 - name: Debian - Test package is available in repo
   command: apt-get --print-uris download google-chrome-stable
   args:
