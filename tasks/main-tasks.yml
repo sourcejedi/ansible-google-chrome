@@ -63,8 +63,4 @@
 - include: setup-yum-repo.yml
   when: ansible_pkg_mgr in ['yum', 'dnf']
 
-- name: Install Google Chrome
-  package:
-    name: google-chrome-stable
-    state: present
 

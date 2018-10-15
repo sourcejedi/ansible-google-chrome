@@ -38,3 +38,8 @@
     warn: no  # can't use ansible apt module, it does not implement this
   check_mode: no
   changed_when: False
+
+- name: Debian - Install Google Chrome
+  package:
+    name: google-chrome-stable
+    state: present
