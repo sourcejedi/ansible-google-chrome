@@ -13,16 +13,15 @@ This role works fine on my systems (Fedora 28, Debian 9).  I expect it to break 
 Your operating system must be based on "Debian" (`apt` package manager) or "RedHat" (`dnf` or possibly `yum`).
 Your CPU architecture must be supported by Google Chrome.  64-bit x86 is supported.  32-bit x86 is no longer supported.
 
-On Fedora Linux, `fedora-workstation-repositories` will be installed by default.
-
 Currently, this role assumes the `gnupg` package can be installed to provide the `gpg` command.  It's OK if this is still the traditional gpg v1, like in Fedora.  It would only break if they removed that package, and expected us to install `gnupg2`.
 
 
+## Warning for Fedora Linux
+
+Fedora users are reminded not to remove `fedora-workstation-repositories`.  Removing that package can cause security vulnerabilities.  You do not have to install that package if you do not want to.  The problem is if you remove `fedora-workstation-repositories` after installing Chrome, it will remove `google-chrome.repo`.  This will cut off your security updates, leaving you vulnerable to attack.  This applies even if you originally installed Chrome by downloading it from the website.  The same problem would apply to all repositories which `fedora-workstation-repositories` installs.  New repositories may be added to this package at any time.  I am not aware of any script to handle the problem.  (For technical completeness: this Ansible role appears to avoid the problem.  This is not deliberate.  Do not rely on it).
+
+
 ## Role Variables
-
-On Fedora, this role needs to know whether `fedora-workstation-repositories` is installed or not.  It therefore enforces the state of this package.  I assume that most users who want to install Google Chrome, will also be happy to install `fedora-workstation-repositories`.  If you are not, you must set the variable `fedora_package_state__fedora_workstation_repositories` to `absent`.
-
-If you later decide to install or remove `fedora-workstation-repositories`, you must re-run this role immediately afterwards.  Using this role correctly will protect you against Fedora bug 1574854 ["disables google chrome repo that was enabled before"](https://bugzilla.redhat.com/show_bug.cgi?id=1574854).  Remember that you must be careful when removing `fedora-workstation-repositories`.  There is a risk of leaving software installed, which will not receive security patches.
 
 To download updates from a shared cache, you can use the variable `google_chrome__yum_proxy`.  This variable applies to systems using the yum or dnf package managers.  It sets `proxy` in `local-google-chome.repo`, as needed for PackageKit (e.g. GNOME Software).  We consider `proxy` in dnf.conf to be obsolete, because it is deliberately ignored by PackageKit.
 

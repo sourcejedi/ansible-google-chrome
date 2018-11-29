@@ -1,8 +1,0 @@
-# On Fedora Linux, roles that work like sourcejedi.google-chrome want to know
-# whether or not fedora-workstation-repositories is installed.  Therefore
-# they need to enforce the state of this package.  I think of this task as a
-# virtual role.  I haven't implemented it as a separate role, because I'm not
-# too keen to force Fedora users to pull it in manually, and it seems
-# confusing if I pulled it in automatically for Debian users.
-
-fedora_package_state__fedora_workstation_repositories: present

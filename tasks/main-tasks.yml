@@ -62,5 +62,3 @@
 
 - include: setup-yum-repo.yml
   when: ansible_pkg_mgr in ['yum', 'dnf']
-
-
