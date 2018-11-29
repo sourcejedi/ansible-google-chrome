@@ -10,13 +10,12 @@ This role works fine on my systems (Fedora 28, Debian 9).  I expect it to break 
 
 ## Requirements
 
-Operating system based on "Debian" (`apt` package manager), or "RedHat" (`dnf` or possibly `yum`).
+Your operating system must be based on "Debian" (`apt` package manager) or "RedHat" (`dnf` or possibly `yum`).
+Your CPU architecture must be supported by Google Chrome.  64-bit x86 is supported.  32-bit x86 is no longer supported.
 
 On Fedora Linux, `fedora-workstation-repositories` will be installed by default.
 
-Currently this role assumes the `gnupg` package can be installed to provide the `gpg` command.  It's OK if this is still the traditional gpg v1, like in Fedora.  It would only break if they removed that package, and expected us to install `gnupg2`.
-
-Note, Chrome is no longer available for 32-bit x86.
+Currently, this role assumes the `gnupg` package can be installed to provide the `gpg` command.  It's OK if this is still the traditional gpg v1, like in Fedora.  It would only break if they removed that package, and expected us to install `gnupg2`.
 
 
 ## Role Variables
@@ -27,7 +26,9 @@ If you later decide to install or remove `fedora-workstation-repositories`, you 
 
 To download updates from a shared cache, you can use the variable `google_chrome__yum_proxy`.  This variable applies to systems using the yum or dnf package managers.  It sets `proxy` in `local-google-chome.repo`, as needed for PackageKit (e.g. GNOME Software).  We consider `proxy` in dnf.conf to be obsolete, because it is deliberately ignored by PackageKit.
 
-There is no variable for systems using apt.  You can instead set `Acquire::http::Proxy` in apt.conf.  The setting will be respected both by apt and PackgeKit.
+If you configure Fedora to use a proxy, the proxy MUST support HTTPS through the HTTP CONNECT method.  apt-cacher-ng MUST NOT be used.  The yum/dnf repo configuration fetches the signing key over HTTPS.  apt-cacher-ng does not support HTTPS.  PackageKit will fail to fetch the signing key, and then ignore Chrome security updates.  This affects the GNOME Software updater, for example.
+
+There is no proxy variable for systems using apt.  You can instead set `Acquire::http::Proxy` in apt.conf.  The setting will be respected both by apt and PackgeKit.
 
 
 ## Package Signing Keys
