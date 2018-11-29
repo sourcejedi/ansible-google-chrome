@@ -36,14 +36,17 @@ This role verifies the known fingerprints of Google package signing keys, inspir
 
 Once Google Chrome has been verified and installed, it should take care of any subsequent key updates as normal.  They will be downloaded over HTTPS.  I believe key pinning is *not* implemented.
 
-However the current version of this role will stop working when the Packages Signing Authority key changes.
+However the current version of this role will stop working when the Packages Signing Authority key changes.  Note the "expires" fields below.
 
 ```
-$ gpg files/linux_signing_key.pub
+$ gpg --with-fingerprint files/linux_signing_key.pub
 pub  1024D/7FAC5991 2007-03-08 Google, Inc. Linux Package Signing Key <linux-packages-keymaster@google.com>
+      Key fingerprint = 4CCA 1EAF 950C EE4A B839  76DC A040 830F 7FAC 5991
 sub  2048g/C07CB649 2007-03-08
 pub  4096R/D38B4796 2016-04-12 Google Inc. (Linux Packages Signing Authority) <linux-packages-keymaster@google.com>
+      Key fingerprint = EB4C 1BFD 4F04 2F6D DDCC  EC91 7721 F63B D38B 4796
 sub  4096R/640DB551 2016-04-12 [expires: 2019-04-12]
+sub  4096R/997C215E 2017-01-24 [expires: 2020-01-24]
 ```
 
 (Possible improvement: provide an option which refetches `linux_signing_keys.pub`, for use by developers.  This option will fail *during* a key transition, instead of *after*.  It can use `get_url force=yes` - it's a small file - so I can pick up the transition the next time I run the role.  The option should work in --check mode, if at all possible).
