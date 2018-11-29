@@ -30,6 +30,16 @@
     state: "{{ fedora_package_state__fedora_workstation_repositories }}"
   when: ansible_distribution == "Fedora"
 
+# Note.  This gets recreated by updates to fedora-workstation-repositories.
+# This is very ugly... but it's OK because it will be created with "enabled=0".
+# And the google cronjob does not override "enabled=0".
+# At least for the moment.
+# We cannot anticipate what anyone might do about
+# https://bugzilla.redhat.com/show_bug.cgi?id=1574854
+# "disables google chrome repo that was enabled before".
+# FIXME.  Is that bug solved by the fix to
+# https://bugzilla.redhat.com/show_bug.cgi?id=1640626
+# Google Chrome repository silently disabled when upgrading to F29?
 - name: RedHat - Uninstall any existing google-chrome.repo
   file:
     path: /etc/yum.repos.d/google-chrome.repo
