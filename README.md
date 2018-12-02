@@ -23,11 +23,13 @@ Fedora users are reminded not to remove `fedora-workstation-repositories`.  Remo
 
 ## Role Variables
 
-To download updates from a shared cache, you can use the variable `google_chrome__yum_proxy`.  This variable applies to systems using the yum or dnf package managers.  It sets `proxy` in `local-google-chome.repo`, as needed for PackageKit (e.g. GNOME Software).  We consider `proxy` in dnf.conf to be obsolete, because it is deliberately ignored by PackageKit.
+There is no proxy variable for systems using apt.  You can instead set `Acquire::http::Proxy` in apt.conf.  The setting will be respected both by apt and PackageKit.
 
-If you configure Fedora to use a proxy, the proxy MUST support HTTPS through the HTTP CONNECT method.  apt-cacher-ng MUST NOT be used.  The yum/dnf repo configuration fetches the signing key over HTTPS.  apt-cacher-ng does not support HTTPS.  PackageKit will fail to fetch the signing key, and then ignore Chrome security updates.  This affects the GNOME Software updater, for example.
+For yum or dnf, you can download updates from a shared cache by setting `google_chrome__yum_baseurl`.  To set this value, take the baseurl for the repository, and remove the architecture at the end (`/x86-64` / `/$basearch`).  I use this with apt-cacher-ng.
 
-There is no proxy variable for systems using apt.  You can instead set `Acquire::http::Proxy` in apt.conf.  The setting will be respected both by apt and PackgeKit.
+We consider `proxy=` in dnf.conf to be obsolete.  PackageKit deliberately ignores it, and has no direct equivalent.
+
+There is an older variable `google_chrome__yum_proxy`, to set a HTTP proxy on the repository.  The proxy MUST support HTTPS through the HTTP CONNECT method.  apt-cacher-ng MUST NOT be used.  The yum/dnf repo configuration fetches the signing key over HTTPS.  apt-cacher-ng does not support HTTPS.  I have seen PackageKit fail to fetch the signing key, and then ignore Chrome security updates.  This affects the GNOME Software updater, for example.
 
 
 ## Package Signing Keys

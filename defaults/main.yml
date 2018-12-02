@@ -1,0 +1,2 @@
+# repo baseurl, not including the "$basearch" at the end.
+google_chrome__yum_baseurl: "http://dl.google.com/linux/chrome/rpm/stable/"
