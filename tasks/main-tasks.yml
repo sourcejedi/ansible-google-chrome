@@ -8,7 +8,7 @@
   debug:
     msg: https://www.google.com/chrome/ or read
          https://www.google.com/intl/en/chrome/browser/privacy/eula_text.html
-  delegate_to: localhost
+  delegate_to: 127.0.0.1
   run_once: yes
 
 # Signing key taken from https://www.google.com/linuxrepositories/
