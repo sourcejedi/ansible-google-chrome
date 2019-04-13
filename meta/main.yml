@@ -18,7 +18,7 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - all
-    - name: CentOS
+    - name: EL
       versions:
         - all
     # This won't work for SUSE (zypper) and Mandrake-derived (urpmi) systems.
