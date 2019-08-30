@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: google-chrome
+  role_name: google_chrome
   author: Alan Jenkins
   description: Install the Google Chrome web browser
 

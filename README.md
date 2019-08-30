@@ -1,4 +1,4 @@
-# sourcejedi.google-chrome #
+# sourcejedi.google_chrome #
 
 Install the Google Chrome web browser.
 
