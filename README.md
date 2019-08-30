@@ -5,15 +5,16 @@ Install the Google Chrome web browser.
 
 ## Status
 
-This role works fine on my systems (Fedora 28, Debian 9).  I expect it to break at some point; see Package Signing Keys below.
+This role works fine on my systems (Fedora and Debian).  I expect it to break at some point.  See Package Signing Keys below.
 
 
 ## Requirements
 
-Your operating system must be based on "Debian" (`apt` package manager) or "RedHat" (`dnf` or possibly `yum`).
+Your operating system must be based on "Debian" (`apt` package manager) or "RedHat" (`dnf` or possibly `yum` package manager).
+
 Your CPU architecture must be supported by Google Chrome.  64-bit x86 is supported.  32-bit x86 is no longer supported.
 
-Currently, this role assumes the `gnupg` package can be installed to provide the `gpg` command.  It's OK if this is still the traditional gpg v1, like in Fedora.  It would only break if they removed that package, and expected us to install `gnupg2`.
+Currently, this role assumes the `gpg` command can be obtained by installing the `gnupg` package.  It's OK if this is still the traditional GnuPG v1, like in Fedora.  It would only break if they removed the `gnupg` package, and expected us to install `gnupg2`.
 
 
 ## Warning for Fedora Linux
@@ -23,11 +24,11 @@ Fedora users are reminded not to remove `fedora-workstation-repositories`.  Remo
 
 ## Role Variables
 
-There is no proxy variable for systems using apt.  You can instead set `Acquire::http::Proxy` in apt.conf.  The setting will be respected both by apt and PackageKit.
-
 For yum or dnf, you can download updates from a shared cache by setting `google_chrome__yum_baseurl`.  To set this value, take the baseurl for the repository, and remove the architecture at the end (`/x86-64` / `/$basearch`).  I use this with apt-cacher-ng.
 
-We consider `proxy=` in dnf.conf to be obsolete.  PackageKit deliberately ignores it, and has no direct equivalent.
+We consider `proxy=` in dnf.conf or yum.conf to be obsolete.  PackageKit deliberately ignores it, and has no direct equivalent.
+
+There is no proxy variable for systems using apt.  You can instead set `Acquire::http::Proxy` in apt.conf.  The setting will be respected both by apt and PackageKit.
 
 There is an older variable `google_chrome__yum_proxy`, to set a HTTP proxy on the repository.  The proxy MUST support HTTPS through the HTTP CONNECT method.  apt-cacher-ng MUST NOT be used.  The yum/dnf repo configuration fetches the signing key over HTTPS.  apt-cacher-ng does not support HTTPS.  I have seen PackageKit fail to fetch the signing key, and then ignore Chrome security updates.  This affects the GNOME Software updater, for example.
 

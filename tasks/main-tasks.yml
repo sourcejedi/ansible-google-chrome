@@ -39,7 +39,7 @@
     state: present
 
 # This role adds keys with specific fingerprints.
-# We do not accept key updates over HTTPS, unlike google-chrome.repo.
+# (This is a one-off check only.  See README)
 
 - name: Our key file matches our list of fingerprints
   shell: |
