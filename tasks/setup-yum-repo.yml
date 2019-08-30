@@ -43,7 +43,6 @@
     name: google-chrome-stable
     state: present
 
-# TODO: I'm stuck with all this, but I can't use the proxy (see README), so maybe I should add a new variable to change the URL ?
 
 - name: RedHat - Create "local-google-chrome.repo" for updates
   template:
