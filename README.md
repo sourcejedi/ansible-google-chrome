@@ -7,6 +7,8 @@ Install the Google Chrome web browser.
 
 This role works fine on my systems (Fedora and Debian).  I expect it to break at some point.  See Package Signing Keys below.
 
+Ansible `--check` mode is supported.  This checks that each task has been applied, and has not been reversed, without changing the managed system(s).  If tasks need to be (re)applied, you are likely to see failures following the "changed" tasks.  This is because some tasks depend on earlier tasks having been applied.
+
 
 ## Requirements
 
