@@ -5,7 +5,7 @@ Install the Google Chrome web browser.
 
 ## Status
 
-This role works fine on my systems (Fedora and Debian).  I expect it to break at some point.  See Package Signing Keys below.
+This role works fine on my systems (Fedora and Debian).
 
 Ansible `--check` mode is supported.  This checks that each task has been applied, and has not been reversed, without changing the managed system(s).  If tasks need to be (re)applied, you are likely to see failures following the "changed" tasks.  This is because some tasks depend on earlier tasks having been applied.
 
@@ -39,27 +39,7 @@ There is an older variable `google_chrome__yum_proxy`, to set a HTTP proxy on th
 
 This role verifies the known fingerprints of Google package signing keys, inspired by Dockerfile best practices.  If you like to cross-check the current fingerprints, simply visit the [Google Linux Software Repositories](https://www.google.com/linuxrepositories/) page.
 
-Once Google Chrome has been verified and installed, it should take care of any subsequent key updates.  They will be downloaded over HTTPS.  I believe key pinning is *not* implemented.
-
-This role could stop working if the necessary keys are changed.  I do not know how Google schedule the changes to their keys.  I also have not worked out which key or subkey is needed to verify packages.  At least on Fedora, the role appears to have kept working when "expires" dates shown below have been passed (in all the "sub"-keys of the Signing Authority).
-
-```
-$ gpg2 --with-fingerprint --import-options import-show --dry-run --import < files/linux_signing_key.pub
-pub   dsa1024 2007-03-08 [SC]
-      4CCA 1EAF 950C EE4A B839  76DC A040 830F 7FAC 5991
-uid                      Google, Inc. Linux Package Signing Key <linux-packages-keymaster@google.com>
-sub   elg2048 2007-03-08 [E]
-
-gpg: key 7721F63BD38B4796: 2 signatures not checked due to missing keys
-pub   rsa4096 2016-04-12 [SC]
-      EB4C 1BFD 4F04 2F6D DDCC  EC91 7721 F63B D38B 4796
-uid                      Google Inc. (Linux Packages Signing Authority) <linux-packages-keymaster@google.com>
-sub   rsa4096 2019-07-22 [S] [expires: 2022-07-21]
-
-gpg: Total number processed: 2
-```
-
-(Possible improvement: provide an option which refetches `linux_signing_keys.pub`, for use by developers.  This option will fail *during* a key transition, instead of *after*.  It can use `get_url force=yes` - it's a small file - so I can pick up the transition the next time I run the role.  The option should work in --check mode, if at all possible).
+Once Google Chrome has been verified and installed, it should take care of any subsequent key updates.  They will be downloaded over HTTPS.  I believe HTTPS key pinning is *not* implemented.
 
 
 ## License

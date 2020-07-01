@@ -11,7 +11,14 @@
   delegate_to: 127.0.0.1
   run_once: yes
 
-# Signing key taken from https://www.google.com/linuxrepositories/
+# Signing keys as per https://www.google.com/linuxrepositories/
+- name: Download current Google signing sub-keys
+  get_url:
+    url: https://dl.google.com/linux/linux_signing_key.pub
+    dest: "{{ role_path }}/files/linux_signing_key.pub"
+    force: yes
+  delegate_to: 127.0.0.1
+  run_once: yes
 
 - name: Copy Google signing keys
   copy:
@@ -21,7 +28,7 @@
     - linux_signing_key.pub
     - key_fingerprints.txt
 
-- name: Copy script for checking key fingerprints
+- name: Copy script for checking master key fingerprints
   copy:
     src: '{{ item }}'
     dest: /ansible-managed/google-chrome/
@@ -31,7 +38,8 @@
   with_items:
     - keyfile_to_fingerprints.sh
 
-# The script requires GPG.  GPG is also needed for `apt-key add`.
+# The script requires GPG.
+# GPG also seemed to be needed for `apt-key add`.
 
 - name: Install GPG for checking key fingerprints
   package:
