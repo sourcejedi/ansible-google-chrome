@@ -14,7 +14,7 @@ Your operating system must be based on "Debian" (`apt` package manager) or "RedH
 
 Your CPU architecture must be supported by Google Chrome.  64-bit x86 is supported.  32-bit x86 is no longer supported.
 
-Currently, this role assumes the `gpg` command can be obtained by installing the `gnupg` package.  It's OK if this is still the traditional GnuPG v1, like in Fedora.  It would only break if they removed the `gnupg` package, and expected us to install `gnupg2`.
+This role now assumes the `gpg` command can be obtained by installing the `gnupg2` package.
 
 
 ## Warning for Fedora Linux
