@@ -12,6 +12,12 @@
   run_once: yes
 
 # Signing keys as per https://www.google.com/linuxrepositories/
+#
+# Download locally.  Note get_url in check_mode would always show
+# "changed" (Ansible 2.9.10).  So I prefer to download locally even
+# in check mode.  I think it's fine; worst case is it looks a bit
+# funny if you run check mode twice in a row.
+#
 - name: Download current Google signing sub-keys
   get_url:
     url: https://dl.google.com/linux/linux_signing_key.pub
@@ -19,6 +25,7 @@
     force: yes
   delegate_to: 127.0.0.1
   run_once: yes
+  check_mode: no
 
 - name: Copy Google signing keys
   copy:
