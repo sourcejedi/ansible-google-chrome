@@ -1,8 +1,8 @@
 # By automating installs with an ansible role,
 # you don't see the normal click-through from the website.
 #
-# Fedora are currently providing a similar install method,
-# so I don't expect to get any calls from Google lawyers :).
+# Fedora are currently providing a similar install method.
+# So I don't expect to get any calls from Google lawyers :).
 
 - name: LEGAL NOTICE - Google Chrome and third party Terms of Service apply
   debug:
@@ -11,14 +11,14 @@
   delegate_to: 127.0.0.1
   run_once: yes
 
-# Signing keys as per https://www.google.com/linuxrepositories/
+# Signing keys, as per https://www.google.com/linuxrepositories/
 #
 # Download locally.  Note get_url in check_mode would always show
 # "changed" (Ansible 2.9.10).  So I prefer to download locally even
-# in check mode.  I think it's fine; worst case is it looks a bit
-# funny if you run check mode twice in a row.
+# in check mode.  I think it's fine; worst case is it could look a
+# bit weird if you run check mode twice in a row.
 #
-- name: Download current Google signing sub-keys
+- name: Fetch the current Google signing sub-keys
   get_url:
     url: https://dl.google.com/linux/linux_signing_key.pub
     dest: "{{ role_path }}/files/linux_signing_key.pub"
@@ -27,6 +27,13 @@
   run_once: yes
   check_mode: no
 
+# Ansible says "upgrade to latest" is not considered best practice.
+# However, it might be useful here to remediate a system with an
+# out-of-date key.  This problem occurs when a system has been left
+# without updating for too long.  For some reason, running the
+# google-chrome cron job does not fix it - it never downloads a new
+# key.
+#
 - name: Copy Google signing keys
   copy:
     src: '{{ item }}'
@@ -34,6 +41,7 @@
   with_items:
     - linux_signing_key.pub
     - key_fingerprints.txt
+  register: public_key
 
 - name: Copy script for checking master key fingerprints
   copy:

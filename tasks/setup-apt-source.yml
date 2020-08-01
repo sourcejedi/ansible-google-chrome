@@ -1,13 +1,9 @@
 - name: Debian - Import signing key
   apt_key:
     file: /ansible-managed/google-chrome/linux_signing_key.pub
-    id: "{{ item }}"
     keyring: /etc/apt/trusted.gpg.d/google.gpg
-  with_items: 
-    # "Including [ids] allows check mode to correctly report the changed state"
-    - 4CCA1EAF950CEE4AB83976DCA040830F7FAC5991
-    - EB4C1BFD4F042F6DDDCCEC917721F63BD38B4796
-  register: keys
+  when: public_key.changed
+  register: key
 
 # Use the standard google-chrome.list.  It points to a fixed url (CDN).
 # If a local cache is desired, a proxy can be set in apt.conf.
@@ -23,7 +19,7 @@
 
 - name: Debian - Test "apt-get update"
   command: apt-get update
-  when: source.changed
+  when: key.changed or source.changed
   register: update
   failed_when: update.rc != 0 or update.stderr != ""
   args:
