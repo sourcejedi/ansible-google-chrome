@@ -7,11 +7,12 @@
     content: ''
 
 # This file deliberately contains no configuration.
-# The real repo is installed as "local-google-chrome.repo",
-# partly for continuity with previous versions of this role.
+# The real repo is installed as "local-google-chrome.repo".
 #
-# The "empty" file avoids google-chrome.repo being created by
-# fedora-workstation-repositories, potentially overriding our config.
+# The "empty" file replaces any google-chrome.repo e.g. created by
+# fedora-workstation-repositories, which might potentially override
+# our config.
+#
 # /etc/cron.daily/google-chrome will not try to "fix" this file, since
 # it only contains comments.  (It interprets this as being disabled).
 #
