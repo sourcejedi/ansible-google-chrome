@@ -1,3 +1,14 @@
+# Sigh.
+# So I think apt_key was always showing "changed" before?
+# And now apt_key is showing "changed",
+# but if there was already a key,
+# it decides it doesn't need to do anything.
+- name: Debian - Remove stale signing key
+  file:
+    name: /etc/apt/trusted.gpg.d/google.gpg
+    state: absent
+  when: public_key.changed
+
 - name: Debian - Import signing key
   apt_key:
     file: /ansible-managed/google-chrome/linux_signing_key.pub
