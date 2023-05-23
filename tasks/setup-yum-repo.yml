@@ -60,8 +60,6 @@
   register: yum_check_update
   # exit status is 0 on success, 100 if updates available (otherwise 100)
   failed_when: yum_check_update.rc not in [0, 100]
-  args:
-    warn: no  # can't use ansible yum module, it does not implement this
 
 # Consistency check for existing installs.  Have Google done something
 # "unexpected" that has left a stale, presumably insecure package?
@@ -71,8 +69,6 @@
     dnf --disablerepo="*" --enablerepo=local-google-chrome \
         repoquery google-chrome-stable \
     | grep google-chrome-stable
-  args:
-    warn: no  # can't use ansible dnf module, it does not implement this
   check_mode: no
   changed_when: False
   when: ansible_pkg_mgr == 'dnf'
