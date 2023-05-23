@@ -27,12 +27,15 @@
 
 # This test is slow, only bother when changed.
 # (In which case, the next use of apt would have had to do it anyway).
-
 - name: Debian - Test "apt-get update"
   command: apt-get update
   when: key.changed or source.changed
   register: update
-  failed_when: update.rc != 0 or update.stderr != ""
+
+- name: Debian - show warnings from apt-get update
+  debug:
+    msg: "{{ update.stderr | d('') }}"
+  when: update.stderr | d('')
 
 # Consistency check for existing installs.  Have Google done something
 # "unexpected" that has left a stale, presumably insecure package?

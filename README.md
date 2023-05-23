@@ -7,6 +7,8 @@ Install the Google Chrome web browser.
 
 This role works fine on my systems (Fedora and Debian).
 
+If you use `apt-cacher-ng`, please read the corresponding section below.
+
 After installing Chrome on a Debian-based system, if you leave it too long without updating, Chrome will fail to update.  This is because your system has missed the transition between package signing keys.  To fix your system security, run this role to refresh the keys.  You should then install all the missed updates before using Chrome (or any other web browser :-).
 
 Ansible `--check` mode is supported.  This checks that each task has been applied, and has not been reversed, without changing the managed system(s).  If tasks need to be (re)applied, you may see failures following the "changed" tasks.  This is because some tasks depend on earlier tasks having been applied.
@@ -26,15 +28,22 @@ This role now assumes the `gpg` command can be obtained by installing the `gnupg
 Fedora users are reminded not to remove `fedora-workstation-repositories`.  Removing that package can cause security vulnerabilities.  You do not have to install that package if you do not want to.  The problem is if you remove `fedora-workstation-repositories` after installing Chrome, it will remove `google-chrome.repo`.  This will cut off your security updates, leaving you vulnerable to attack.  This applies even if you originally installed Chrome by downloading it from the website.  The same problem would apply to all repositories which `fedora-workstation-repositories` installs.  New repositories may be added to this package at any time.  I am not aware of any script to handle the problem.  (For technical completeness: this Ansible role appears to avoid the problem.  This is not deliberate.  Do not rely on it).
 
 
-## Role Variables
+## apt-cacher-ng
 
-For yum or dnf, you can download updates from a shared cache by setting `google_chrome__yum_baseurl`.  To set this value, take the baseurl for the repository, and remove the architecture at the end (`/x86-64` / `/$basearch`).  I use this with apt-cacher-ng.
+Google are now switching to download the updates over HTTPS.  To support caching, the specific HTTPS repo must be configured in both DNF or APT, and on the proxy server.
+
+I have not implemented this for APT.  If you just set a proxy server in APT, caching will not work.
+
+Additionally, the suggested "Basic Configuration" of apt-cacher-ng will break.  In the current version, this role should now detect the failure by itself.  See [Not getting Google Chrome updates, after setting up apt-cacher-ng](https://unix.stackexchange.com/questions/746532/not-getting-google-chrome-updates-after-setting-up-apt-cacher-ng).
+
+
+## Role variables
+
+For yum or dnf, you may download updates from a shared cache by setting `google_chrome__yum_baseurl`.  To set this value, take the baseurl for the repository, and remove the architecture at the end (`/x86-64` / `/$basearch`).  I use this with apt-cacher-ng.
 
 We consider `proxy=` in dnf.conf or yum.conf to be obsolete.  PackageKit deliberately ignores it, and does not provide a direct equivalent.
 
-There is no proxy variable for systems using apt.  You can instead set `Acquire::http::Proxy` in apt.conf.  The setting will be respected both by apt and PackageKit.
-
-There is an older variable `google_chrome__yum_proxy`, to set a HTTP proxy on the repository.  The proxy MUST support HTTPS through the HTTP CONNECT method.  apt-cacher-ng MUST NOT be used.  The yum/dnf repo configuration fetches the signing key over HTTPS.  apt-cacher-ng does not support HTTPS.  I have seen PackageKit fail to fetch the signing key, and then ignore Chrome security updates.  This affects the GNOME Software updater, for example.
+There is an older variable `google_chrome__yum_proxy`, to set a HTTP proxy on the repository.  This proxy MUST support HTTPS through the HTTP CONNECT method, as warned in earlier versions.  As of now, it is also not able to cache updates :-).
 
 
 ## Package Signing Keys
