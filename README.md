@@ -59,9 +59,10 @@ The role itself is licensed GPLv3, please open an issue if this creates any prob
 
 Terms of Service apply for Google Chrome:
 
-* [Google Chrome site](https://www.google.com/chrome/).  The site will show the terms of service before letting you download Chrome.
-* [Google Chrome Terms of Service](https://www.google.com/intl/en/chrome/browser/privacy/eula_text.html]), "Printer-friendly version".
+ * [Google Chrome website](https://www.google.com/chrome/).  This website will show the terms of service if you try to download Chrome.
+ * [Google Terms of Service](https://policies.google.com/terms)
+ * [Google Chrome and ChromeOS Additional Terms of Service](https://www.google.com/intl/en/chrome/terms/).
 
-Google Chrome may include executable code from multiple parties, with specific sections in the Terms of Service.  Chrome may also use Google online services.  The terms do not require Google to notify you of any changes.
+Google Chrome may include executable code from multiple parties, with specific sections in the Additional Terms of Service.  Chrome may also use Google online services.  The terms do not require Google to notify you of any changes.
 
 For open source code, without third-party components, look for the [Chromium Browser](https://www.chromium.org/).
