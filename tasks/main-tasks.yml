@@ -60,8 +60,9 @@
 # The script requires GPG.
 # GPG also seemed to be needed for `apt-key add`.
 
-# FIXME gnupg2 on ubuntu22.04 (and presumably debian)
-# is now a dummy transitional package (for gnupg>=2-ish)
+# Note: gnupg2 on ubuntu22.04 (and presumably debian) is now "a dummy
+# transitional package that provides symlinks from gpg2 to gpg".
+# Our script runs "gpg"... it ain't broke (yet).
 
 - name: Install GPG for checking key fingerprints
   package:
