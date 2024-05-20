@@ -1,7 +1,7 @@
 - name: Debian - Import signing key
-  apt_key:
-    file: /ansible-managed/google-chrome/linux_signing_key.pub
-    keyring: /etc/apt/trusted.gpg.d/google.gpg
+  copy:
+    src: /ansible-managed/google-chrome/linux_signing_key.pub
+    dest: /etc/apt/trusted.gpg.d/google.asc
   register: key
 
 # Use the standard google-chrome.list.  It points to a fixed url (CDN).
