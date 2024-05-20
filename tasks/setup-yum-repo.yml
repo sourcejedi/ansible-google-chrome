@@ -21,7 +21,7 @@
     src: google-chrome-disabled.repo.j2
     dest: /etc/yum.repos.d/google-chrome.repo
 
-- name: Simulate install of Google Chrome
+- name: RedHat - Simulate install of Google Chrome
   package:
     name: google-chrome-stable
     state: present

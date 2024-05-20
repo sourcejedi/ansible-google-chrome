@@ -5,8 +5,8 @@ galaxy_info:
 
   license: GPLv3
 
-  # check_mode
-  min_ansible_version: 2.2
+  # import_tasks
+  min_ansible_version: 2.4
 
   platforms:
     - name: Fedora

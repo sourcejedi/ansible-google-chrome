@@ -82,8 +82,8 @@
       This role only supports an OS based on "Debian" or "RedHat".
       See also "ansible -m setup ... | grep ansible_os_family".
 
-- include: setup-apt-source.yml
+- import_tasks: setup-apt-source.yml
   when: ansible_pkg_mgr == 'apt'
 
-- include: setup-yum-repo.yml
+- import_tasks: setup-yum-repo.yml
   when: ansible_pkg_mgr in ['yum', 'dnf']
