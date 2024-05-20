@@ -10,12 +10,17 @@
   delegate_to: 127.0.0.1
   run_once: yes
 
-# Signing keys, as per https://www.google.com/linuxrepositories/
+# We install signing keys as per https://www.google.com/linuxrepositories/
+#
+# Note, this page says to create /etc/apt/trusted.gpg.d/google.gpg.
+# /etc/cron.daily/google-chrome will end up creating google-chrome.gpg
+# with different binary contents.  The duplication does not cause any
+# errors, and it means the ansible role is not fighting with cron.
 #
 # Download locally.  Note get_url in check_mode would always show
-# "changed" (Ansible 2.9.10).  So I prefer to download locally even
-# in check mode.  I think it's fine; worst case is it could look a
-# bit weird if you run check mode twice in a row.
+# "changed" (tested: ansible 2.9.10).  So I prefer to download locally,
+# even in check mode.  I think this is fine; worst case is it could
+# look a bit suprising if you run check mode twice in a row.
 #
 - name: Fetch the current Google signing sub-keys
   get_url:
