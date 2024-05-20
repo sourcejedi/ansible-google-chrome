@@ -22,7 +22,9 @@ galaxy_info:
       versions:
         - all
     # This won't work for SUSE (zypper) and Mandrake-derived (urpmi) systems.
-    # See http://linuxg.net/how-to-install-google-chrome-42-stable-on-the-most-popular-linux-systems-via-the-official-google-repository/
+    #
+    # Currently, Chrome explicitly supports openSUSE.  You can install the
+    # google-chrome RPM manually.
 
   galaxy_tags:
     - desktop
