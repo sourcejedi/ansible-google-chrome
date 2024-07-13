@@ -50,7 +50,7 @@ There is an older variable `google_chrome__yum_proxy`, to set a HTTP proxy on th
 
 This role verifies the known fingerprints of Google package signing keys, inspired by Dockerfile best practices.  If you like to cross-check the current fingerprints, simply visit the [Google Linux Software Repositories](https://www.google.com/linuxrepositories/) page.
 
-Once the Google Chrome package has been verified and installed, it takes responsibility for any subsequent key updates.  On Fedora, I believe updated keys are downloaded over HTTPS.  I believe HTTPS key pinning is *not* implemented.
+Once the Google Chrome package has been verified and installed, it takes responsibility for any subsequent key updates.  On Fedora, I believe updated keys are downloaded over HTTPS.
 
 
 ## License
