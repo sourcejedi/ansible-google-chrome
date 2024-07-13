@@ -5,7 +5,7 @@ Install the Google Chrome web browser.
 
 ## Status
 
-This role works fine on my systems (Fedora and Debian).
+This role works fine on my systems.
 
 If you use `apt-cacher-ng`, please read the corresponding section below.
 
@@ -34,7 +34,7 @@ Google are now switching to download the updates over HTTPS.  To support caching
 
 I have not implemented this for APT.  If you just set a proxy server in APT, caching will not work.
 
-Additionally, the suggested "Basic Configuration" of apt-cacher-ng will break.  In the current version, this role should now detect the failure by itself.  See [Not getting Google Chrome updates, after setting up apt-cacher-ng](https://unix.stackexchange.com/questions/746532/not-getting-google-chrome-updates-after-setting-up-apt-cacher-ng).
+Additionally, the suggested "Basic Configuration" of apt-cacher-ng will break.  This role should detect the failure by itself.  See [Not getting Google Chrome updates, after setting up apt-cacher-ng](https://unix.stackexchange.com/questions/746532/not-getting-google-chrome-updates-after-setting-up-apt-cacher-ng).
 
 
 ## Role variables
