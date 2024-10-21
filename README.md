@@ -30,20 +30,20 @@ Fedora users are reminded not to remove `fedora-workstation-repositories`.  Remo
 
 ## apt-cacher-ng
 
-Google are now switching to download the updates over HTTPS.  To support caching, the specific HTTPS repo must be configured in both DNF or APT, and on the proxy server.
+Google packages are downloaded over HTTPS.  To use a shared cache like apt-cacher-ng, the specific HTTPS repo must be configured in both DNF or APT, and on the proxy server.
 
-I have not implemented this for APT.  If you just set a proxy server in APT, caching will not work.
+I have not implemented this for APT.  If you just set a proxy server in APT, then Google packages will not be cached.
 
-Additionally, the suggested "Basic Configuration" of apt-cacher-ng will break.  This role should detect the failure by itself.  See [Not getting Google Chrome updates, after setting up apt-cacher-ng](https://unix.stackexchange.com/questions/746532/not-getting-google-chrome-updates-after-setting-up-apt-cacher-ng).
+This role will show an error if you use the suggested "Basic Configuration" of apt-cacher-ng.  See: [Not getting Google Chrome updates, after setting up apt-cacher-ng](https://unix.stackexchange.com/questions/746532/not-getting-google-chrome-updates-after-setting-up-apt-cacher-ng).
 
 
 ## Role variables
 
-For yum or dnf, you may download updates from a shared cache by setting `google_chrome__yum_baseurl`.  To set this value, take the baseurl for the repository, and remove the architecture at the end (`/x86-64` / `/$basearch`).  I use this with apt-cacher-ng.
+For yum or dnf, you may download updates from a shared cache by setting `google_chrome__yum_baseurl`.  To set this value, take the baseurl for the repository, and remove the architecture at the end (`/x86-64` / `/$basearch`).  I used this with apt-cacher-ng.
 
 We consider `proxy=` in dnf.conf or yum.conf to be obsolete.  PackageKit deliberately ignores it, and does not provide a direct equivalent.
 
-There is an older variable `google_chrome__yum_proxy`, to set a HTTP proxy on the repository.  This proxy MUST support HTTPS through the HTTP CONNECT method, as warned in earlier versions.  As of now, it is also not able to cache updates :-).
+There is an older variable `google_chrome__yum_proxy`, to set a HTTP proxy on the repository.  This proxy MUST support HTTPS through the HTTP CONNECT method, as warned in earlier versions.  It is also not able to cache updates :-).
 
 
 ## Package Signing Keys

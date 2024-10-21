@@ -4,8 +4,11 @@
     dest: /etc/apt/trusted.gpg.d/google.asc
   register: key
 
-# Use the standard google-chrome.list.  It points to a fixed url (CDN).
-# If a local cache is desired, a proxy can be set in apt.conf.
+# Use the standard google-chrome.list.
+#
+# Note: As per the comment inside this file, if you make certain types of
+# changes to it, they will automatically be reverted.  This is due to a
+# cron job provided by Google.
 
 - name: Debian - Add Google Chrome package source
   copy:
