@@ -83,7 +83,7 @@
 
 - name: Supported OS - must use apt or dnf (or possibly yum)
   assert:
-    that: ansible_pkg_mgr in ['apt', 'dnf', 'yum']
+    that: ansible_pkg_mgr in ['apt', 'dnf', 'dnf5', 'yum']
     msg: >
       This role only supports an OS based on "Debian" or "RedHat".
       See also "ansible -m setup ... | grep ansible_os_family".
@@ -92,4 +92,4 @@
   when: ansible_pkg_mgr == 'apt'
 
 - import_tasks: setup-yum-repo.yml
-  when: ansible_pkg_mgr in ['yum', 'dnf']
+  when: ansible_pkg_mgr in ['yum', 'dnf', 'dnf5']
