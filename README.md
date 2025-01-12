@@ -13,6 +13,8 @@ After installing Chrome on a Debian-based system, if you leave it too long witho
 
 Ansible `--check` mode is supported.  This checks that each task has been applied, and has not been reversed, without changing the managed system(s).  If tasks need to be (re)applied, you may see failures following the "changed" tasks.  This is because some tasks depend on earlier tasks having been applied.
 
+Ansible `--check` mode may show an unnecessary change.  This happens when updating the signing key, as above.  This role does not detect whether the signing key is too old or not; it simply updates it to the latest version.
+
 
 ## Requirements
 
