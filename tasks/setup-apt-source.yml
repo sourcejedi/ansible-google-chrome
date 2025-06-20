@@ -1,5 +1,6 @@
 - name: Debian - Import signing key
   copy:
+    remote_src: yes
     src: /ansible-managed/google-chrome/linux_signing_key.pub
     dest: /etc/apt/trusted.gpg.d/google.asc
   register: key
