@@ -8,7 +8,7 @@
   debug:
     msg: Please see https://www.google.com/chrome/ or https://www.google.com/intl/en/chrome/terms/
   delegate_to: 127.0.0.1
-  run_once: yes
+  run_once: true
 
 # We install signing keys as per https://www.google.com/linuxrepositories/
 #
@@ -34,10 +34,10 @@
   get_url:
     url: https://dl.google.com/linux/linux_signing_key.pub
     dest: "{{ role_path }}/files/cache/linux_signing_key.pub"
-    force: yes
+    force: true
   delegate_to: 127.0.0.1
-  run_once: yes
-  check_mode: no
+  run_once: true
+  check_mode: false
   changed_when: False
 
 - name: Copy Google signing keys
