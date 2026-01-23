@@ -1,12 +1,14 @@
 galaxy_info:
   role_name: google_chrome
+  namespace: sourcejedi
+
   author: Alan Jenkins
   description: Install the Google Chrome web browser
 
   license: GPLv3
 
   # import_tasks
-  min_ansible_version: 2.4
+  min_ansible_version: "2.4"
 
   platforms:
     - name: Fedora
