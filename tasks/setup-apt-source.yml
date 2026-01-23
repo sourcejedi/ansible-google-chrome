@@ -26,8 +26,8 @@
 
 - name: Debian - show warnings from apt-get update
   debug:
-    msg: "{{ update.stderr | d('') }}"
-  when: update.stderr | d('')
+    msg: "{{ update.stderr }}"
+  when: update.stderr | d('') | length > 0
 
 # Consistency check for existing installs.  Have Google done something
 # "unexpected" that has left a stale, presumably insecure package?
