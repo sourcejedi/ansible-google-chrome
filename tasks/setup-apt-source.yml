@@ -13,7 +13,7 @@
 
 - name: Debian - Add Google Chrome package source
   copy:
-    src: google-chrome.list
+    src: google-chrome.sources
     dest: /etc/apt/sources.list.d/
   register: source
 
